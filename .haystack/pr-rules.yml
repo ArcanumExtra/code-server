@@ -1,0 +1,113 @@
+rules:
+  - id: "pin-github-actions-and-avoid-main-ref"
+    name: "Pin GitHub Actions references in workflows"
+    type: llm
+    severity: warning
+    category: "security"
+    message: "In .github/workflows, reference actions by a pinned tag or commit SHA instead of floating refs like main to avoid unexpected CI behavior changes."
+    llm:
+      prompt: "In .github/workflows, reference actions by a pinned tag or commit SHA instead of floating refs like main to avoid unexpected CI behavior changes."
+  - id: "keep-ci-tool-versions-aligned-with-repo"
+    name: "Keep CI tool versions aligned with repository versions"
+    type: llm
+    severity: warning
+    category: "patterns"
+    message: "When CI runs formatters/linters (for example Prettier), ensure workflow versions are pinned and kept in sync with package/lockfile versions to prevent local-vs-CI drift."
+    llm:
+      prompt: "When CI runs formatters/linters (for example Prettier), ensure workflow versions are pinned and kept in sync with package/lockfile versions to prevent local-vs-CI drift."
+  - id: "do-not-duplicate-typecheck-in-ci"
+    name: "Avoid duplicate TypeScript typecheck jobs in CI"
+    type: llm
+    severity: warning
+    category: "performance"
+    message: "Do not add a separate CI typecheck step if the build job already runs TypeScript typechecking; duplicate checks increase runtime and maintenance without added coverage."
+    llm:
+      prompt: "Do not add a separate CI typecheck step if the build job already runs TypeScript typechecking; duplicate checks increase runtime and maintenance without added coverage."
+  - id: "use-prefixed-env-vars-for-new-settings"
+    name: "Use CODE_SERVER_ prefix for new environment variables"
+    type: llm
+    severity: warning
+    category: "style"
+    message: "New environment variables should use the CODE_SERVER_ prefix (migrating away from unprefixed or CS_ names) to avoid collisions and keep configuration naming consistent."
+    llm:
+      prompt: "New environment variables should use the CODE_SERVER_ prefix (migrating away from unprefixed or CS_ names) to avoid collisions and keep configuration naming consistent."
+  - id: "respect-config-precedence-cli-env-file"
+    name: "Preserve config precedence order"
+    type: llm
+    severity: warning
+    category: "patterns"
+    message: "When reading configuration, keep precedence as command-line flags first, then environment variables, then config file defaults."
+    llm:
+      prompt: "When reading configuration, keep precedence as command-line flags first, then environment variables, then config file defaults."
+  - id: "use-safe-password-compare"
+    name: "Use constant-time password comparison"
+    type: llm
+    severity: warning
+    category: "security"
+    message: "Authentication password checks must use safeCompare (or equivalent constant-time comparison) rather than direct equality operators."
+    llm:
+      prompt: "Authentication password checks must use safeCompare (or equivalent constant-time comparison) rather than direct equality operators."
+  - id: "http-basic-must-emit-authenticate-header"
+    name: "Set WWW-Authenticate on HTTP Basic unauthorized responses"
+    type: llm
+    severity: warning
+    category: "security"
+    message: "Any HTTP Basic auth unauthorized path must include a WWW-Authenticate header (including middleware paths) so clients handle auth challenges correctly."
+    llm:
+      prompt: "Any HTTP Basic auth unauthorized path must include a WWW-Authenticate header (including middleware paths) so clients handle auth challenges correctly."
+  - id: "avoid-double-logging-errors"
+    name: "Do not log the same error twice"
+    type: llm
+    severity: warning
+    category: "style"
+    message: "If an error is already wrapped/logged at a higher level, avoid local catch blocks that log it again; prefer a single contextual error log."
+    llm:
+      prompt: "If an error is already wrapped/logged at a higher level, avoid local catch blocks that log it again; prefer a single contextual error log."
+  - id: "use-path-module-for-filesystem-paths"
+    name: "Use path utilities for filesystem paths"
+    type: llm
+    severity: warning
+    category: "style"
+    message: "In tests and Node code, construct paths with path.join/path.resolve instead of string concatenation for cross-platform correctness."
+    llm:
+      prompt: "In tests and Node code, construct paths with path.join/path.resolve instead of string concatenation for cross-platform correctness."
+  - id: "prefer-event-waits-over-fixed-timeouts-in-e2e"
+    name: "Use deterministic waits in e2e tests"
+    type: llm
+    severity: warning
+    category: "performance"
+    message: "In Playwright e2e tests, wait on selectors/frame locators or load conditions instead of arbitrary sleep/timeouts to reduce flakiness."
+    llm:
+      prompt: "In Playwright e2e tests, wait on selectors/frame locators or load conditions instead of arbitrary sleep/timeouts to reduce flakiness."
+  - id: "do-not-remove-flaky-tests-without-fix-plan"
+    name: "Keep flaky tests with mitigation instead of deleting by default"
+    type: llm
+    severity: warning
+    category: "patterns"
+    message: "Do not remove flaky tests outright; keep coverage and stabilize with deterministic assertions or documented follow-up fixes."
+    llm:
+      prompt: "Do not remove flaky tests outright; keep coverage and stabilize with deterministic assertions or documented follow-up fixes."
+  - id: "sync-tests-with-renamed-or-removed-env-vars"
+    name: "Update tests when env vars change"
+    type: llm
+    severity: warning
+    category: "patterns"
+    message: "When environment variable names are renamed or removed, update unit/integration tests in the same PR so tests reflect current configuration behavior."
+    llm:
+      prompt: "When environment variable names are renamed or removed, update unit/integration tests in the same PR so tests reflect current configuration behavior."
+  - id: "keep-patches-scoped-and-refreshed"
+    name: "Keep patch files minimal and focused"
+    type: llm
+    severity: warning
+    category: "patterns"
+    message: "Changes under patches/*.diff should include only intended hunks for that patch and be refreshed to avoid unrelated drift from other patch files or diff algorithm artifacts."
+    llm:
+      prompt: "Changes under patches/*.diff should include only intended hunks for that patch and be refreshed to avoid unrelated drift from other patch files or diff algorithm artifacts."
+  - id: "use-product-name-long-for-app-name"
+    name: "Use product configuration for app display name"
+    type: llm
+    severity: warning
+    category: "style"
+    message: "When code needs the application display name, read `productService.nameLong` (from product configuration) instead of hardcoded strings so branding and build-time injection are respected."
+    llm:
+      prompt: "When code needs the application display name, read `productService.nameLong` (from product configuration) instead of hardcoded strings so branding and build-time injection are respected."
